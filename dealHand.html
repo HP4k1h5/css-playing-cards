@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+    <html>
+    <head> <meta charset="utf-8"/> 
+    <script>
+    </script>
+    <style> 
+       body{
+           background-color:hsl(240,100%,65%);
+           color:#CCCCCC;
+           font:1em times;
+           vertical-align:top;
+           }
+           div.cardtable{
+             max-width:50em;
+             border:.5em solid #DFB134;
+             border-radius:1em;
+             background-color:hsl(70,100%,40%);
+             color:#EEDC73;
+                      }
+           div.market{
+              position:relative;
+              display:inline-block;
+              white-space:normal;
+              overflow:hidden;
+              vertical-align:top;
+              min-width:10em;
+              min-height:5em; 
+              border:.05em solid black;
+              border-radius:.5em;   
+              font:2em; 
+              background-color:hsl(100,80%,80%);
+                      }
+           div.p0hand{
+             font:3em times;
+             position:relative;
+             display:inline-block;
+             white-space:normal;
+             overflow:hidden;
+             vertical-align:top;
+             min-width:7em;
+             min-height:7em;
+             background-color:hsl(220,80%,80%);
+                       }
+           div.pXhand{
+             position:relative;
+             display:inline-block;
+             vertical-align:top;
+             min-width:5em;
+             min-height:5em;
+             border:.05em dotted black;
+             background-color:hsl(0,80%,80%);
+             
+           }
+           div.card {
+              position:relative;
+              display:inline-block;
+              white-space:normal;
+              overflow:hidden;
+              vertical-align:top;
+              width:1.6em;
+              height:2.5em;
+              padding:.25em;
+              padding-right:0em;
+              border:.05em solid black;
+              border-radius:.2em;
+              margin-left:0em;
+              background-color:hsl(120,100%,90%);
+              font:1em times;
+              word-spacing:.07em;
+              letter-spacing:-.05em;
+              line-height:.5em;
+              z-index:0;
+            }
+              .red{
+                color:red;
+              }
+              .black{
+                color:black;
+              }
+              div.card:hover{
+                border:.05em solid #FFFFFF;
+              }
+            span.fl{
+              font:1em times ;
+              color:black;
+              position:absolute;
+              left:0;
+              top:.05em;
+              letter-spacing:-.19em;
+            }
+            span.ll{
+              position:absolute;
+              font:.5em times;
+              color:black;
+              right:.3em;
+              bottom:.2em;
+              letter-spacing:-.19em;
+              
+            }
+            div.card.face{
+              letter-spacing:-.25em;
+              margin:0em;
+              padding:.25em;
+              padding-right:0em;
+            }
+            div.ofcards{
+              position:relative;
+              display:inline-block;
+              white-space:normal;
+              overflow:hidden;
+              vertical-align:top;
+              max-width:65em;
+              padding:  .5em;
+              padding-right:0em;
+              border:.05em solid black;
+              border-radius:1em;
+              background-color:hsl(120,100%,40%);
+              font:.12em times  ;
+            }
+            div.ofcards.big {
+              font:4em times;
+            }
+            
+    </style>
+    </head>
+      <body>
+
+  <p id="demo1">test</p>
+  <br>
+  <div class="cardtable" id="theTable"></div>
+    <span id="demoS11">S11</span>
+    <span><div id="demoS12" class="ofcards"></div></span>
+    <span><div id="demo15" class="ofcards"></div></span>
+
+  <br>
+  <p id="demo3">D3</p>
+  <br>
+
+  <script>
+   //DECK OF CARDS
+   
+  var allCards =[  
+   acespd = {rank: "Ace", suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">A\</span>\ \<br>\<br>\<br>&nbsp;&#9824;\<span class\=\"ll\">&#8704;\</span>\</div>"}, 
+   twospd = {rank: 2, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">2\</span>\
+\<br>&#9824; \<br>&#9824;\<span class\=\"ll\">Z\</span>\</div>"}, 
+   trespd = {rank: 3, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">3\</span>\ &nbsp;&#9824;\ &#9824; &nbsp;&#9824;\<span class\=\"ll\">ƹ\</span>\</div>"}, 
+   forspd = {rank: 4, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">4\</span>\<br>&#9824; \
+&#9824; &nbsp;&#9824;&#9824;\<span class\=\"ll\">&#8224;/\</span>\</div>"},
+   fivspd = {rank: 5, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">5\</span>&nbsp;&#9824;&nbsp;\
+&#9824; &nbsp;&#9824;&nbsp; &#9824; &#9824;\<span class\=\"ll\">5\ \</span>\</div>"},
+   sixspd = {rank: 6, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">6\</span>\<br>&#9824; &#9824;\ &nbsp;&#9824;&#9824; &#9824;&#9824;\<span class\=\ \"ll\">9\</span>\</div>"},
+   svnspd = {rank: 7, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">7\</span> &nbsp;&#9824;\ &#9824; &#9824; &nbsp; &#9824; &#9824; &#9824; &nbsp;&#9824;\
+\<span class\=\"ll\"> &#8736;\</span>\</div>"},
+   egtspd = {rank: 8, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">8\</span>\ &nbsp;&#9824;&#9824; &#9824; &#9824; &nbsp;&#9824;&nbsp; &#9824; &#9824;\ &nbsp;&#9824;\<span class\=\"ll\">8\</span>\</div>"},
+   ninspd = {rank: 9, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">9\</span>&nbsp;\ &#9824;&#9824; &#9824; &#9824; &nbsp;&#9824; &#9824; &#9824; &#9824;\ &nbsp;&#9824; \<span class\=\"ll\">6\</span>\</div>"},
+   tenspd = {rank: 10, suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">10\</span>\ &nbsp;&#9824;&#9824; &#9824; &#9824; &#9824;&#9824; &#9824; &#9824; \ &nbsp;&#9824;&#9824;\<span class=\"ll\">O l\</span>\</div>"},
+   jakspd = {rank: "Jack", suit: "Spades", color: "#000000", aPr: "\
+\<div class\=\"face card black\">\<span class\=\"fl\">\
+J\</span>\<br> &nbsp;\(&nbsp; ͡ ͜ᵔ &#9824;&nbsp; ᵔ &nbsp;\
+\<span class\=\"ll\">ɾ\</span>\</div>"},
+   qunspd = {rank: "Queen", suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"face card black\">\<span class\=\"fl\">Q\</span>\
+&nbsp; &nbsp; &nbsp;&#8240;&#186;\<br>\<br>&nbsp; &nbsp; &nbsp;ᵔ&nbsp;\ &#9824;&nbsp;ᵔ ͜ \<span class\=\"ll\"> &#210;\</span>\</div>"},
+   kngspd = {rank: "King", suit: "Spades", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">K\</span>\
+&nbsp;&#8240;&#186;\<br>&nbsp;oo &nbsp;&#9824; \
+&nbsp; ྱ \<span class\=\"ll\">&#62;|\</span>\</div>"},
+   acehrt = {rank: "Ace", suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">A\</span>\<br>&nbsp;\ &#9829;\<span class\=\"ll\">&#8704;\</span>\</div>"},
+   twohrt = {rank: 2, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card  red\">\<span class\=\"fl\">2\</span>\
+\<br>&#9829; &#9829;\<span class\=\"ll\">Z\</span>\</div>"},
+   trehrt = {rank: 3, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">3\</span>\<br>&nbsp;&#9829;\ &#9829; &nbsp;&#9829;\<span class\=\"ll\">ƹ\</span>\</div>"},
+   forhrt = {rank: 4, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">4\</span>\
+\<br>&#9824; &#9824; &nbsp;&#9824;&#9824;\
+\<span class\=\"ll\">&#8224;/\</span>\</div>"}, 
+   fivhrt = {rank: 5, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">5\</span>\
+&nbsp;&#9824;&nbsp; &#9824; &nbsp;&#9824;&nbsp; &#9824; &#9824;\
+\<span class\=\"ll\">5\</span>\</div>"},
+   sixhrt = {rank: 6, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">6\</span>\<br>&#9829; &#9829;\ &nbsp;&#9829;&#9829; &#9829;&#9829;\<span class\=\"ll\">9\</span>\</div>"}, 
+   svnhrt = {rank: 7, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">7\</span>\ &nbsp;&#9829; \ &#9829; &#9829; &nbsp; &#9829; &#9829; &#9829; &nbsp;&#9829;\
+\<span class\=\"ll\"> &#8736;\</span>\</div>"}, 
+   egthrt = {rank: 8, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">8\</span> &nbsp;&#9829;\
+&#9829; &#9829; &#9829; &nbsp;&#9829;&nbsp; &#9829; &#9829; &nbsp;&#9829;\
+\<span class\=\"ll\">8\</span>\</div>"},
+   ninhrt = {rank: 9, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">9\</span> &#9829;&#9829;\ &#9829; &#9829; &nbsp;&#9829; &#9829; &#9829; &#9829;\
+&#9829; \<span class\=\"ll\">6\</span>\</div>"},
+   tenhrt = {rank: 10, suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">10\</span> &nbsp;&#9829;\
+&#9829; &#9829; &#9829; &#9829;&#9829; &#9829; &#9829; \ &nbsp;&#9829;&#9829;\<span class=\"ll\">O l\</span>\</div>"},
+   jakhrt = {rank: "Jack", suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"face card red\">\<span class\=\"fl\">J\
+\</span> \<br>&nbsp; ᵔ ͜&#9829; ͡ &nbsp;ᵔ\
+\<span class\=\"ll\">ɾ\</span>\</div>"}, 
+   qunhrt = {rank: "Queen", suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">Q\</span>\
+&nbsp;&#402;&#402; &nbsp;&#8706;&#9829; &nbsp;&nbsp;&lsaquo;\ &nbsp;&#8629;\<span class\=\"ll\"> &#210;\</span>\</div>"},
+   knghrt = {rank: "King", suit: "Hearts", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">K\</span>\
+&#9829;&#9829;&#9829; \<br>\<span class\=\"black\"\ style\=\"text-decoration:line-through; margin-left:-.4em\">\+oo»\</span>\
+\<br>\<span style\=\"margin-left:0em;\">\( 𐅼 ;\</span>\<br>&nbsp; ᵒ\
+\<br>\<span class\=\"ll\">&#62;|\</span>\</div>"},
+   aceclb = {rank: "Ace", suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">A\</span>\ \<br>\<br>&#9827;\<span class\=\"ll\">&#8704;\</span>\</div>"},
+   twoclb = {rank: 2, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card  black\">\<span class\=\"fl\">2\</span>\
+&nbsp;&#9827; &#9827;\<span class\=\"ll\">Z\</span>\</div>"},
+   treclb = {rank: 3, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">3\</span>\<br>\
+&#9827; &#9827; &nbsp;&#9827;\<span class\=\"ll\">ƹ\</span>\</div>"},
+   forclb = {rank: 4, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">4\</span>\
+\<br>&#9827; &#9827; &nbsp;&nbsp;&#9827;\<br>&#9827;\
+\<span class\=\"ll\">&#8224;/\</span>\</div>"},
+   fivclb = {rank: 5, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">5\</span>\ \<br>&#9827;\ &#9827; &nbsp; &#9827;&nbsp; &#9827; &#9827; \<span class\=\ \"ll\">5\</span>\</div>"},
+   sixclb = {rank: 6, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">6\</span> \<br>&#9827;\ &#9827; &nbsp;&#9827;&#9827; &#9827;&#9827;\<span class\=\ \"ll\">9\</span>\</div>"},
+   svnclb = {rank: 7, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">7\</span>\ &nbsp;&#9827;\ &#9827; &#9827; &nbsp; &#9827; &#9827; &#9827; &nbsp;&#9827; \<span\ class\=\"ll\"> &#8736;\</span>\</div>"}, 
+   egtclb = {rank: 8, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">8\</span>\ &nbsp;&#9827;&#9827; &#9827; &#9827; &nbsp;&#9827;&nbsp; &#9827; &#9827;\ &nbsp;&#9827;\<span class\=\"ll\">8\</span>\</div>"},
+   ninclb = {rank: 9, suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">9\</span>\ &nbsp;&#9827;&#9827; &#9827; &#9827; &nbsp;&#9827; &#9827;&#9827;&#9827;\ &#9827; \<span class\=\"ll\">6\</span>\</div>"},
+   tenclb = {rank: 10, suit: "Clubs", color: "#000000",aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">10\</span>\ &nbsp;&#9827;&#9827; &#9827; &#9827; &#9827;&#9827; &#9827; &#9827; \ &nbsp;&#9827;&#9827;\<span class=\"ll\">O l\</span>\</div>"},
+   jakclb = {rank: "Jack", suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">J\
+\</span> &nbsp;&#174;&#174; &nbsp;&nbsp;o &nbsp;&#9827;\
+\<span class\=\"ll\">ɾ\</span>\</div>"},
+   qunclb = {rank: "Queen", suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"card black\">\<span class\=\"fl\">Q\</span> &nbsp;&#402;\
+&#402; &nbsp;&#8706;&#9827; &nbsp;&nbsp;&lsaquo; &nbsp;&#8629;\
+\<span class\=\"ll\"> &#210;\</span>\</div>"},
+   kngclb = {rank: "King", suit: "Clubs", color: "#000000", aPr:"\
+\<div class\=\"face card black\">\<span class\=\"fl\">K\</span>\
+\<br>&#9827; : : : &#9827; \<br> | \ಠ &nbsp; &nbsp;\ಠ \/ \<br>&nbsp;\
+\\&nbsp; \-\; &nbsp; &nbsp;\/\<span class\=\"ll\">&#62;|\</span>\</div>"},
+   acedmd = {rank: "Ace", suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">A\</span>\ \<br>\<br>\<br>&nbsp;&#9830;\<span class\=\"ll\">&#8704;\</span>\</div>"},
+   twodmd = {rank: 2, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card  red\">\<span class\=\"fl\">2\</span>\
+\<br>&#9830; \<br>&nbsp;&nbsp;&#9830;\<span class\=\"ll\">Z\</span>\</div>"}, 
+   tredmd = {rank: 3, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">3\</span> &nbsp;&nbsp; \
+&#9830; &#9830;\<br>&nbsp;&#9830;\<span class\=\"ll\">ƹ\</span>\</div>"},
+   fordmd = {rank: 4, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">4\</span>\
+\<br>&#9830; &#9830; &nbsp;&#9830;&nbsp;&#9830;\
+\<span class\=\"ll\">&#8224;\</span>\</div>"},
+   fivdmd = {rank: 5, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">5\</span>\<br>&#9830; &#9830;\ &nbsp;&#9830;&nbsp; &#9830; &#9830; \<span class\=\"ll\">5\</span>\</div>"},
+   sixdmd = {rank: 6, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">6\</span>\<br>&#9830; &#9830;\ &nbsp;&#9830;&#9830; &#9830;&#9830;\<span class\=\"ll\">9\</span>\</div>"}, 
+   svndmd = {rank: 7, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">7\</span> &nbsp;&#9830; \
+&#9830; &#9830; &nbsp; &#9830; &#9830; &#9830; &nbsp;&#9830;\
+\<span class\=\"ll\"> &#8736;\</span>\</div>"},
+   egtdmd = {rank: 8, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">8\</span> &nbsp;&#9830;\
+&#9830; &#9830; &#9830; &nbsp;&#9830;&nbsp; &#9830; &#9830;\ &nbsp;&#9830;\<span class\=\"ll\">8\</span>\</div>"},
+   nindmd = {rank: 9, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">9\</span>&nbsp; &#9830;\
+&#9830; &#9830; &#9830; &nbsp;&#9830; &#9830; &#9830; &#9830; &nbsp;&#9830;\ \<span class\=\"ll\">6\</span>\</div>"},
+   tendmd = {rank: 10, suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">10\</span> &nbsp;&#9830;\
+&#9830; &#9830; &#9830; &#9830;&#9830; &#9830; &#9830; \ &nbsp;&#9830;&#9830;\<span class=\"ll\">O l\</span>\</div>"},
+   jakdmd = {rank: "Jack", suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">J\
+\</span> &nbsp;&#174;&#174; &nbsp;&nbsp;o &nbsp;&#9830;\
+\<span class\=\"ll\">ɾ\</span>\</div>"},
+   qundmd = {rank: "Queen", suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"card red\">\<span class\=\"fl\">Q\</span>&nbsp;&#402;\
+&#402; &nbsp;&#8706;&#9830; &nbsp;&nbsp;&lsaquo; &nbsp;&#8629;\
+\<span class\=\"ll\"> &#210;\</span>\</div>"},
+   kngdmd = {rank: "King", suit: "Diamonds", color: "#FF0000", aPr:"\
+\<div class\=\"face card red\">\<span class=\"fl\">K\</span>\
+\<br>&#9830; ₩ &#9830;\<br>&nbsp;\ಠ\_\ರೃ\
+\<span class\=\"ll\">&#62;|\</span>\</div>"}
+];
+//console.log(allCards);
+console.log(allCards.slice(1,2));
+//globalVARS PLAYERS and MARKET
+var players =[
+ p0 = [],
+ p1 = [],
+ p2 = []
+              ];
+var market = []; 
+  function showPlayers(){
+    var q;
+      document.getElementById("theTable").innerHTML=
+"\<div class\=\"p0hand\" id\=\"p0h\">p0hand\</div>" +
+"\<div class\=\"market\" id\=\"mkt\">market\</div>" +
+"\<div class\=\"pXhand\" id\=\"p1h\">p1hand\</div>" + 
+"\<div class\=\"pXhand\" id\=\"p2h\">p2hand\</div>" + 
+"\<button id\=\"dealbutton\" onclick\=\"deal()\">Deal\</button>";
+      };
+    showPlayers()
+console.log(players)
+  //SHUFFLE
+  var fullDeck = [];
+  var k;
+  for (k=0; k <= 51; k++){
+    fullDeck.push(k)
+  };
+  var shufFullDeck = [];	
+  var i;
+  var draw1;
+  var lengFullDeck = fullDeck.length; 
+  for (i = 0; i < lengFullDeck; i++) {
+  draw1 = Math.floor(Math.random() * (fullDeck.length));
+  shufFullDeck.push(fullDeck.splice(draw1, 1));
+  };
+console.log("1stshuff" + parseInt(shufFullDeck[0]));
+console.log(shufFullDeck);
+
+    //DEAL
+  var distNum = 0;
+ 
+  function moveCard (frOm, tO, whicH){
+    var frOm;
+    var tO;
+    var whicH;
+    tO.push(parseInt(frOm.splice(whicH, 1)));
+    distNum += 1;
+  };
+  function deal(){
+    var i;
+    var lengpX = players.length;
+    for (i=0; i < lengpX; i++){
+  moveCard(shufFullDeck, players[i], 0);   
+  }
+  moveCard(shufFullDeck, market, 0);
+  console.log(distNum);
+  var j,k,u;
+  var mktcards=[];
+  var plXcards=[];
+  var plXId="";
+  for (j=0; j<market.length; j++){
+mktcards += allCards[parseInt(market[j])]["aPr"]; 
+  document.getElementById("mkt").innerHTML=mktcards;
+  }
+  for(k=0; k<lengpX; k++){
+    plXId ="p"+k+"h"
+    plXcards = "";
+    for (u=0; u<players[k].length; u++){
+ plXcards += allCards[parseInt(players[k][u])]["aPr"];
+    document.getElementById(plXId).innerHTML=plXcards;
+    }
+    }
+//    document.getElementById("dealbutton").onclick="pXturn";
+};
+// PXTURN
+function pXturn(){
+ 
+
+};
+
+  /*
+    console.log(counter)
+  console.log(shufFullDeck.length)
+  if (counter + shufFullDeck.length == 52){
+    console.log("true")
+  }
+  console.log(Boolean (counter + shufFullDeck.length == 52))
+  document.getElementById("demoS11").innerHTML=allCards[shufFullDeck[0]]["aPr"];
+  
+function showCards(){
+    var l;
+    var lengcards = allCards.length;
+    var carddisp = [];
+    for (l=0; l< lengcards; l++){
+carddisp += allCards[l]["aPr"]; 
+  document.getElementById("demoS12").innerHTML=carddisp;
+  };
+  };
+ // showCards()
+
+  //SHOW SHUFFLED DECK
+  var showshuff = [];
+function showFulledDeck(){
+  var o;
+    for  (o=0; o < 52; o++){
+ showshuff +=  allCards[parseInt(shufFullDeck[o])]["aPr"];
+    }
+    };
+//showFulledDeck();
+//document.getElementById("demo15").innerHTML=showshuff;
+
+  //DISPLAY CARDS
+  
+ 
+  */  
+  </script>
+  </body>
+  </html>
